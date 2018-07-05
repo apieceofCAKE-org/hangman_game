@@ -89,7 +89,7 @@ def tentativas_erradas(palavra_secreta, letras_usuario):
     * letras_usuario: lista das letras que o usuário entrou até agora.
     '''
 
-    # Não é uma maneira eficiente, mas mantém a independência da função.
+    # Tomando o cuidado de não modificar os parâmetros por referência.
     ps2 = palavra_secreta[:]
     lu2 = letras_usuario[:]
     conjunto_lu2 = set(lu2)
@@ -146,19 +146,24 @@ def entra_tentativa():
     um caracter inválido (números, varias letras, signos de pontuação, etc.)
     '''
 
+    # Garantindo um bom funcionamento com try/except.
     while True:
-        print('')
-        print('*' * 35)
-        letra = str(input('Entre com uma letra: '))
+        try:
+            while True:
+                letra = str(input('Entre com uma letra: '))
 
-        # Lidando com erros de entrada. Com o método isalpha() é simples.
-        if not letra.isalpha():
-            print('')
-            print('O caractere é inválido. Tente novamente...')
-            continue
-        else:
+                # Lidando com erros de entrada.
+                # letra deve ser uma string de um caractere que seja letra.
+                if not letra.isalpha() or len(letra) != 1:
+                    print('')
+                    print('O caractere é inválido. Tente novamente...')
+                    continue
+                else:
+                    break
             break
-
+        except TypeError or ValueError:
+            print('Entrada inválida. Tente novamente...')
+    print('*' * 35)
     print('')
 
     # As letras serão sempre maíusculas.
@@ -193,7 +198,11 @@ def jogo_da_forca():
 
                     print('Tentativas restantes: ', restantes)
                     letra = entra_tentativa()
-                    letras_usuario.append(letra)
+                    if letra in letras_usuario:
+                        print('Letra já inserida previamente! Continuando...')
+                        print('')
+                    else:
+                        letras_usuario.append(letra)
 
         mostra_adivinhadas(palavra_secreta, letras_usuario)
 
@@ -203,8 +212,15 @@ def jogo_da_forca():
             print('¯\\_(ツ)_/¯ você perdeu.')
 
         print('')
-        cont = input('Entre C se deseja continuar jogando: ')
 
+        # Garantindo um bom funcionamento com try/except.
+        while True:
+            try:
+                cont = input('Entre C se deseja continuar jogando: ')
+                break
+            except TypeError or ValueError:
+                print('Entrada inválida!')
+                print('')
         if not (cont == 'C' or cont == 'c'):
             break
 
@@ -214,7 +230,7 @@ def jogo_da_forca():
 
 boneco = '''
                      ▗▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-                     ▐█▘▘▘▘▘▘▘▘▘▘▘▘▘▘▘
+                     ▐█                        ▘
                      ▐█                       ▜▌
                      ▐█                       █▛
                      ▐█                       ▟▙
@@ -256,7 +272,7 @@ boneco = '''
                      ▐█
                      ▐█
   ▗▄▄▄▙▄▄▄▙▄▄▄▙▄▄▄▙▄▙██▟▟▄▙▙▟▟▄▙▙▟▄▙▟▄▄▄▄▄
-   ▘▀▝ ▘▘▘▘▘▘▘▘▘▘▘▘▘  ▘▝ ▘▝ ▘ ▘▝ ▘▘▝ ▘▘▀▝▝
+
    '''
 
 print(boneco)
