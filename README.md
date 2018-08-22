@@ -1,2 +1,2 @@
-# hangman_assignment
+# hangman
 College programming class assignment.
