@@ -1,2 +1,2 @@
 # hangman
-College programming class assignment.
+Hangman game. College programming class assignment. In portuguese.
