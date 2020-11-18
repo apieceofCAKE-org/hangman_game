@@ -15,7 +15,7 @@
 # https://github.com/rio-group/Prog1-trabalho
 
 # Os arquivos que você adicionar ou criar poderão ser visualizados
-# e editados pelo seu professor
+# e editados pelo seu professorSS
 
 # ******************************************************************
 
